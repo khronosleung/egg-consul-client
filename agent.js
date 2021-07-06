@@ -1,29 +1,24 @@
 'use strict';
 
-class AppBootHook {
+class AgentBootHook {
   constructor(app) {
     this.app = app;
   }
 
-  // 配置文件加载完成
   async configDidLoad() {
     const { app } = this;
-    app.consul = await app.initConsul();
-    app.messenger.on('consulRegister', () => {
-      app.consul.registerService();
-    });
-    app.messenger.on('consulDeRegister', () => {
-      app.consul.deRegisterService();
-    });
+    require('./lib/consul')(app);
   }
 
   async didReady() {
-    await this.app.consul.registerService();
+    if (this.app.config.consul.autoRegister) {
+      await this.app.consul.hook.registerService();
+    }
   }
 
   async beforeClose() {
-    await this.app.consul.deRegisterService();
+    await this.app.consul.hook.deRegisterService();
   }
 }
 
-module.exports = AppBootHook;
+module.exports = AgentBootHook;

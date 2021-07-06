@@ -1,6 +1,6 @@
 {
   "name": "egg-consul-client",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Consul-Client plugin for Egg",
   "eggPlugin": {
     "name": "consul"
@@ -13,6 +13,7 @@
     "egg-plugin-consul-client"
   ],
   "dependencies": {
+    "@sindresorhus/is": "^4.0.1",
     "consul": "^0.40.0"
   },
   "devDependencies": {
@@ -22,8 +23,9 @@
     "egg-bin": "^4.16.2",
     "egg-ci": "^1.18.0",
     "egg-mock": "^4.1.0",
-    "eslint": "^7.29.0",
-    "eslint-config-egg": "^9.0.0"
+    "eslint": "^7.30.0",
+    "eslint-config-egg": "^9.0.0",
+    "nock": "^13.1.1"
   },
   "engines": {
     "node": ">=8.0.0"
@@ -38,22 +40,22 @@
     "autod": "autod"
   },
   "files": [
-    "app.js",
-    "agent.js",
     "config",
-    "app"
+    "agent.js",
+    "lib",
+    "app.js"
   ],
   "ci": {
     "version": "8, 10"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/eggjs/egg-consul-client.git"
+    "url": "git+https://github.com/kidneyleung/egg-consul-client.git"
   },
   "bugs": {
-    "url": "https://github.com/eggjs/egg/issues"
+    "url": "https://github.com/kidneyleung/egg-consul-client/issues"
   },
-  "homepage": "https://github.com/eggjs/egg-consul-client#readme",
-  "author": "liangjingxian",
+  "homepage": "https://github.com/kidneyleung/egg-consul-client#readme",
+  "author": "kidneyleung",
   "license": "MIT"
 }

@@ -7,5 +7,6 @@
  */
 exports.consul = {
   server: {},
+  autoRegister: true,
   client: {},
 };

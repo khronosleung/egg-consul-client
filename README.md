@@ -22,7 +22,7 @@
 
 egg 框架的 consul-client 插件
 
-此插件基于 [consul](https://github.com/silas/node-consul) 实现简单的配置封装。
+此插件基于 [consul](https://github.com/silas/node-consul) 实现简单的配置封装，并增加了一些功能 hook api。
 
 
 ## 安装
@@ -52,15 +52,127 @@ Egg其中特性是能在一个应用实例里管理多个Worker进程，从而�
 - [多进程模型和进程间通讯](https://eggjs.org/zh-cn/core/cluster-and-ipc.html)
 - [Egg加载器及生命周期](https://eggjs.org/zh-cn/advanced/loader.html#%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F)
 
-### How
-描述这个插件是怎样使用的，具体的示例代码，甚至提供一个完整的示例，并给出链接。
+### 用例
 
+#### trigger(apiName, param)
+
+代理调用 [node-consul API](https://github.com/silas/node-consul#documentation) Api。
+
+参数
+ - apiName(String): api名
+ - param(Any, optional): api参数
+
+
+用例：
 ```javascript
-// 手动注册服务
-app.consul.serviceRegister();
-// 手动服务
-app.consul.serviceDeRegister();
-app.consul.serviceDeRegister();
+await app.consul.trigger('agent.self');
+```
+
+结果：
+```json
+{
+  "Config": {
+    "Bootstrap": true,
+    "Server": true,
+    "Datacenter": "dc1",
+    "DataDir": "/tmp/node1/data",
+    "DNSRecursor": "",
+    "DNSConfig": {
+      "NodeTTL": 0,
+      "ServiceTTL": null,
+      "AllowStale": false,
+      "MaxStale": 5000000000
+    },
+    "Domain": "consul.",
+    "LogLevel": "INFO",
+    "NodeName": "node1",
+    "ClientAddr": "127.0.0.1",
+    "BindAddr": "127.0.0.1",
+    "AdvertiseAddr": "127.0.0.1",
+    "Ports": {
+      "DNS": 8600,
+      "HTTP": 8500,
+      "RPC": 8400,
+      "SerfLan": 8301,
+      "SerfWan": 8302,
+      "Server": 8300
+    },
+    "LeaveOnTerm": false,
+    "SkipLeaveOnInt": false,
+    "StatsiteAddr": "",
+    "Protocol": 2,
+    "EnableDebug": false,
+    "VerifyIncoming": false,
+    "VerifyOutgoing": false,
+    "CAFile": "",
+    "CertFile": "",
+    "KeyFile": "",
+    "ServerName": "",
+    "StartJoin": [],
+    "UiDir": "",
+    "PidFile": "/tmp/node1/pid",
+    "EnableSyslog": false,
+    "SyslogFacility": "LOCAL0",
+    "RejoinAfterLeave": false,
+    "CheckUpdateInterval": 300000000000,
+    "Revision": "441d613e1bd96254c78c46ee7c1b35c161fc7295+CHANGES",
+    "Version": "0.3.0",
+    "VersionPrerelease": ""
+  },
+  "Member": {
+    "Name": "node1",
+    "Addr": "127.0.0.1",
+    "Port": 8301,
+    "Tags": {
+      "bootstrap": "1",
+      "build": "0.3.0:441d613e",
+      "dc": "dc1",
+      "port": "8300",
+      "role": "consul",
+      "vsn": "2",
+      "vsn_max": "2",
+      "vsn_min": "1"
+    },
+    "Status": 1,
+    "ProtocolMin": 1,
+    "ProtocolMax": 2,
+    "ProtocolCur": 2,
+    "DelegateMin": 2,
+    "DelegateMax": 4,
+    "DelegateCur": 4
+  }
+}
+```
+
+##### hook
+
+基于 consul api，将一些常用api组合，进行打包封装。
+
+
+##### hook.registerService
+
+注册服务。
+
+内部关联的Api：
+ - `agent.service.register`
+
+用例：
+```javascript
+await app.consul.trigger('hook.registerService');
+```
+
+
+##### hook.deRegisterService
+
+注销已注册服务。
+
+内部关联的Api：
+ - `agent.service.deregister`
+ - `agent.check.deregister`
+
+用例：
+```javascript
+await app.consul.trigger('hook.deRegisterService');
 ```
 
 
@@ -97,7 +209,7 @@ config.consul = {
 
 ## 提问交流
 
-请到 [egg issues](https://github.com/kidneyleung/egg-consul-client/issues) 异步交流。
+请到 [egg-consul-client issues](https://github.com/kidneyleung/egg-consul-client/issues) 异步交流。
 
 ## License
 

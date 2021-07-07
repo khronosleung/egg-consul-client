@@ -54,7 +54,7 @@ Egg其中特性是能在一个应用实例里管理多个Worker进程，从而�
 
 ### 用例
 
-#### trigger(apiName, param)
+### trigger(apiName, param)
 
 代理调用 [node-consul API](https://github.com/silas/node-consul#documentation) Api。
 
@@ -144,12 +144,12 @@ await app.consul.trigger('agent.self');
 }
 ```
 
-##### hook
+### Hook
 
 基于 consul api，将一些常用api组合，进行打包封装。
 
 
-##### hook.registerService
+#### hook.registerService
 
 注册服务。
 
@@ -162,7 +162,7 @@ await app.consul.trigger('hook.registerService');
 ```
 
 
-##### hook.deRegisterService
+#### hook.deRegisterService
 
 注销已注册服务。
 

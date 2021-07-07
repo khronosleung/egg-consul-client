@@ -10,7 +10,7 @@
 [npm-image]: https://img.shields.io/npm/v/egg-consul-client.svg?style=flat-square
 [npm-url]: https://npmjs.org/package/egg-consul-client
 [travis-image]: https://img.shields.io/travis/kidneyleung/egg-consul-client.svg?style=flat-square
-[travis-url]: https://travis-ci.org/kidneyleung/egg-consul-client
+[travis-url]: https://travis-ci.com/kidneyleung/egg-consul-client
 [codecov-image]: https://img.shields.io/codecov/c/github/kidneyleung/egg-consul-client.svg?style=flat-square
 [codecov-url]: https://codecov.io/github/kidneyleung/egg-consul-client?branch=master
 [david-image]: https://img.shields.io/david/kidneyleung/egg-consul-client.svg?style=flat-square

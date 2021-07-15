@@ -34,10 +34,12 @@ function getServerIpAddress() {
   return '';
 }
 
-const serverIpAddress = getServerIpAddress();
+const serverHostName = 'unittest-machine'; // os.hostname()
+// const serverIpAddress = getServerIpAddress();
+const serverIpAddress = '127.0.0.1';
 const serverPort = 7001;
 const clientName = 'egg-consul-client-unittest';
-const clientId = `${clientName}-${md5(os.hostname())}`;
+const clientId = `${clientName}-${md5(serverHostName)}`;
 
 exports.consul = {
   server: {

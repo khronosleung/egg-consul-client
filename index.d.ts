@@ -1,9 +1,9 @@
-import * as Egg from 'egg';
-import { Consul, ConsulOptions, Service } from "consul";
+import { Consul, ConsulOptions, Agent } from "consul";
 
 interface EggConsulOptions {
   server?: ConsulOptions;
-  client?: Service.RegisterOptions;
+  client?: any;
+  // client?: Agent.Service.RegisterOptions;
 }
 
 declare module 'egg' {
@@ -15,5 +15,3 @@ declare module 'egg' {
     consul: EggConsulOptions;
   }
 }
-
-export = Egg;

@@ -6,13 +6,13 @@ class AgentBootHook {
   }
 
   async configDidLoad() {
-    const { app } = this;
-    require('./lib/consul')(app);
+    require('./lib/consul')(this.app);
   }
 
   async didReady() {
-    if (this.app.config.consul.autoRegister) {
-      await this.app.consul.hook.registerService();
+    const { app } = this;
+    if (app.config.consul.autoRegister) {
+      await app.consul.hook.registerService();
     }
   }
 

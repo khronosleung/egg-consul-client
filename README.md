@@ -175,6 +175,26 @@ await app.consul.trigger('hook.registerService');
 await app.consul.trigger('hook.deRegisterService');
 ```
 
+## 服务发现
+
+#### getServiceHost
+
+通过服务名称获取服务host，如果是目标服务是集群多服务，内置负载均衡算法（轮询算法）
+
+用例：
+```javascript
+// 第一次调用
+app.consul.getServiceHost('serviceName-1'); // return 192.168.1.123:7001
+
+// 第二次调用
+app.consul.getServiceHost('serviceName-1'); // return 192.168.1.124:7001
+
+// 第三次调用
+app.consul.getServiceHost('serviceName-1'); // return 192.168.1.123:7001
+```
+
+服务列表获取和维护，是通过定时任务获取，间隔频率更改 `config.consul.syncInterval` 配置。
+
 
 ## 详细配置
 
@@ -184,6 +204,7 @@ await app.consul.trigger('hook.deRegisterService');
 // config/config.[env].js
 config.consul = {
   autoRegister: true,                                  // 是否自动注册服务
+  syncInterval: '1m',                                  // 服务列表同步更新间隔，默认为1分钟
   server: {                                            // required, consul agent 服务配置
     host: '127.0.0.1',                                 // consul agent服务IP（String, default: 127.0.0.1）
     port: 8500,                                        // consul agent服务端口（Integer, default: 8500）

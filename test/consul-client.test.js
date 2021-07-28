@@ -12,7 +12,7 @@ const is = require('@sindresorhus/is');
 process.env.SENDMESSAGE_ONE_PROCESS = true;
 
 function sleep(ms = 0) {
-  return new Promise((resolve) => {
+  return new Promise(resolve => {
     setTimeout(resolve, ms);
   });
 }
@@ -34,7 +34,7 @@ function setupNock(scope) {
     Object.defineProperty(scope, 'nock', {
       configurable: true,
       enumerable: true,
-      get: function () {
+      get() {
         return nock('http://127.0.0.1:8500');
       },
     });
@@ -52,7 +52,7 @@ describe('test/consul-client.test.js', () => {
     setupNock(this);
   });
 
-  /*describe('config', () => {
+  /* describe('config', () => {
     it('should has config', async () => {
       this.nock.get('/v1/agent/self')
         .reply(200, path => getMockData(path));
@@ -71,7 +71,6 @@ describe('test/consul-client.test.js', () => {
         clean: true,
       });
       await app.ready();
-
 
 
       this.nock.put('/v1/agent/service/deregister/egg-consul-client-unittest-4cd4fc55fbcf6d6df3e019281be62b79')
@@ -200,7 +199,7 @@ describe('test/consul-client.test.js', () => {
     it('register fail from config not set client info', async () => {
       mock(app.config, 'consul', {
         ...app.config.consul,
-        client: {}
+        client: {},
       });
       this.nock.put('/v1/agent/service/register')
         .reply(200);
@@ -217,7 +216,7 @@ describe('test/consul-client.test.js', () => {
         client: {
           ...app.config.consul.client,
           name: '',
-        }
+        },
       });
       this.nock.put('/v1/agent/service/register')
         .reply(200);
@@ -298,7 +297,7 @@ describe('test/consul-client.test.js', () => {
     it('deregister fail from config not set client info', async () => {
       mock(app.config, 'consul', {
         ...app.config.consul,
-        client: {}
+        client: {},
       });
       this.nock.put('/v1/agent/service/deregister/egg-consul-client-unittest-4cd4fc55fbcf6d6df3e019281be62b79')
         .reply(200);
@@ -317,7 +316,7 @@ describe('test/consul-client.test.js', () => {
         client: {
           ...app.config.consul.client,
           name: '',
-        }
+        },
       });
       this.nock.put('/v1/agent/service/deregister/egg-consul-client-unittest-4cd4fc55fbcf6d6df3e019281be62b79')
         .reply(200);

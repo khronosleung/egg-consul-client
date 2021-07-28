@@ -52,7 +52,7 @@ describe('test/consul-client.test.js', () => {
     setupNock(this);
   });
 
-  /* describe('config', () => {
+  describe('config', () => {
     it('should has config', async () => {
       this.nock.get('/v1/agent/self')
         .reply(200, path => getMockData(path));
@@ -72,6 +72,18 @@ describe('test/consul-client.test.js', () => {
       });
       await app.ready();
 
+      await sleep(3000);
+
+      const consulConfig = await app.consul.getConfig();
+      assert.deepStrictEqual(
+        consulConfig.server,
+        {
+          host: '127.0.0.1',
+          port: 8500,
+          secure: false,
+          promisify: true,
+        }
+      );
 
       this.nock.put('/v1/agent/service/deregister/egg-consul-client-unittest-4cd4fc55fbcf6d6df3e019281be62b79')
         .reply(200);
@@ -81,7 +93,7 @@ describe('test/consul-client.test.js', () => {
       await app.close();
       nock.cleanAll();
     });
-  });*/
+  });
 
   describe('services', () => {
     let app;
@@ -142,6 +154,59 @@ describe('test/consul-client.test.js', () => {
 
       const services = await app.agent.consul.hook.syncServices();
       assert.notStrictEqual(Object.keys(services).length, Object.keys({}).length);
+    });
+  });
+
+  describe('triggerApi', () => {
+    let app;
+    before(async () => {
+      this.nock.get('/v1/agent/self')
+        .reply(200, path => getMockData(path));
+      this.nock.get('/v1/catalog/services')
+        .reply(200, path => getMockData(path));
+      this.nock.get('/v1/health/service/serviceName-1')
+        .reply(200, path => getMockData(path));
+      this.nock.get('/v1/health/service/serviceName-2')
+        .reply(200, path => getMockData(path));
+
+      mock.consoleLevel('NONE');
+      app = mock.app({
+        baseDir: 'apps/consul-client',
+        clean: true,
+      });
+      await app.ready();
+    });
+    afterEach(() => {
+      mock.restore();
+    });
+    after(async () => {
+      this.nock.put('/v1/agent/service/deregister/egg-consul-client-unittest-4cd4fc55fbcf6d6df3e019281be62b79')
+        .reply(200);
+      this.nock.put('/v1/agent/check/deregister/egg-consul-client-unittest-4cd4fc55fbcf6d6df3e019281be62b79')
+        .reply(200);
+
+      await app.close();
+      nock.cleanAll();
+    });
+
+    it('trigger api - <catalog.service.list>', async () => {
+      this.nock.get('/v1/catalog/services')
+        .reply(200, path => getMockData(path));
+      this.nock.get('/v1/health/service/serviceName-1')
+        .reply(200, path => getMockData(path));
+      this.nock.get('/v1/health/service/serviceName-2')
+        .reply(200, path => getMockData(path));
+
+      const res = await app.consul.trigger('catalog.service.list');
+
+      assert.deepStrictEqual(
+        Object.keys(res)[0],
+        'serviceName-1'
+      );
+      assert.deepStrictEqual(
+        Object.keys(res)[1],
+        'serviceName-2'
+      );
     });
   });
 

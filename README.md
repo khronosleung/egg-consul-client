@@ -204,6 +204,7 @@ app.consul.getServiceHost('serviceName-1'); // return 192.168.1.123:7001
 // config/config.[env].js
 config.consul = {
   autoRegister: true,                                  // 是否自动注册服务
+  timeout: 3000,                                       // consul api调用超时时间，单位：毫秒    
   syncInterval: '1m',                                  // 服务列表同步更新间隔，默认为1分钟
   server: {                                            // required, consul agent 服务配置
     host: '127.0.0.1',                                 // consul agent服务IP（String, default: 127.0.0.1）

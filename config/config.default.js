@@ -8,5 +8,6 @@
 exports.consul = {
   server: {},
   autoRegister: true,
+  timeout: 3000,
   client: {},
 };

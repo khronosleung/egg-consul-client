@@ -231,7 +231,7 @@ config.consul = {
 
 ## 提问交流
 
-请到 [egg-consul-client issues](https://github.com/kidneyleung/egg-consul-client/issues) 异步交流。
+请到 [egg-consul-client issues](https://github.com/kidneyleung/egg-consul-client/issues) 交流。
 
 ## License
 

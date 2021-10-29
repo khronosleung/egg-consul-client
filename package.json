@@ -13,7 +13,7 @@
     "egg-plugin-consul-client"
   ],
   "dependencies": {
-    "@sindresorhus/is": "^4.0.1",
+    "@sindresorhus/is": "^4.2.0",
     "consul": "^0.40.0"
   },
   "devDependencies": {

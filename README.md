@@ -8,13 +8,13 @@
 [![npm download][download-image]][download-url]
 
 [npm-image]: https://img.shields.io/npm/v/egg-consul-client.svg?style=flat-square
+[travis-image]: https://img.shields.io/travis/khronosleung/egg-consul-client.svg?style=flat-square
 [npm-url]: https://npmjs.org/package/egg-consul-client
-[travis-image]: https://img.shields.io/travis/kidneyleung/egg-consul-client.svg?style=flat-square
-[travis-url]: https://travis-ci.com/kidneyleung/egg-consul-client
-[codecov-image]: https://img.shields.io/codecov/c/github/kidneyleung/egg-consul-client.svg?style=flat-square
-[codecov-url]: https://codecov.io/github/kidneyleung/egg-consul-client?branch=master
-[david-image]: https://img.shields.io/david/kidneyleung/egg-consul-client.svg?style=flat-square
-[david-url]: https://david-dm.org/kidneyleung/egg-consul-client
+[travis-url]: https://travis-ci.com/khronosleung/egg-consul-client
+[codecov-image]: https://img.shields.io/codecov/c/github/khronosleung/egg-consul-client.svg?style=flat-square
+[codecov-url]: https://codecov.io/github/khronosleung/egg-consul-client?branch=master
+[david-image]: https://img.shields.io/david/khronosleung/egg-consul-client.svg?style=flat-square
+[david-url]: https://david-dm.org/khronosleung/egg-consul-client
 [snyk-image]: https://snyk.io/test/npm/egg-consul-client/badge.svg?style=flat-square
 [snyk-url]: https://snyk.io/test/npm/egg-consul-client
 [download-image]: https://img.shields.io/npm/dm/egg-consul-client.svg?style=flat-square
@@ -231,7 +231,7 @@ config.consul = {
 
 ## 提问交流
 
-请到 [egg-consul-client issues](https://github.com/kidneyleung/egg-consul-client/issues) 交流。
+请到 [egg-consul-client issues](https://github.com/khronosleung/egg-consul-client/issues) 交流。
 
 ## License
 
